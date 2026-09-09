@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nena</title>
+    <title>ნენა</title>
 
     <style>
         * {
@@ -30,9 +30,11 @@
             z-index: 10;
         }
 
-        header h1 {
+        .logo {
             margin: 0;
-            font-size: 28px;
+            color: #ff69b4;
+            font-size: 30px;
+            font-weight: bold;
         }
 
         .layout {
@@ -40,7 +42,6 @@
             min-height: calc(100vh - 65px);
         }
 
-        /* სარჩევი */
         .sidebar {
             width: 230px;
             background: white;
@@ -76,7 +77,6 @@
             font-weight: bold;
         }
 
-        /* შესვლა */
         .login-button {
             width: 100%;
             margin-top: 15px;
@@ -102,7 +102,6 @@
             display: none;
         }
 
-        /* მთავარი */
         .main {
             flex: 1;
             padding: 25px;
@@ -156,10 +155,8 @@
             padding: 8px 12px;
             border-radius: 7px;
             cursor: pointer;
-            display: none;
         }
 
-        /* + ღილაკი */
         .add-button {
             position: fixed;
             right: 25px;
@@ -178,7 +175,6 @@
             z-index: 20;
         }
 
-        /* ფანჯარა */
         .modal {
             display: none;
             position: fixed;
@@ -204,7 +200,8 @@
 
         .modal-box input[type="password"],
         .modal-box input[type="text"],
-        .modal-box textarea {
+        .modal-box textarea,
+        .modal-box select {
             width: 100%;
             padding: 12px;
             margin-bottom: 12px;
@@ -252,7 +249,6 @@
             display: none;
         }
 
-        /* ტელეფონი */
         @media (max-width: 700px) {
 
             .layout {
@@ -300,12 +296,11 @@
 <body>
 
 <header>
-    <h1>Nena</h1>
+    <h1 class="logo">🌸 ნენა</h1>
 </header>
 
 <div class="layout">
 
-    <!-- სარჩევი -->
     <aside class="sidebar">
 
         <div class="sidebar-title">
@@ -337,7 +332,7 @@
         </button>
 
         <button class="category" onclick="showCategory('შამპუნები', this)">
-            🫧 შამპუნები
+            🧼 შამპუნები
         </button>
 
         <button class="category" onclick="showCategory('სახის მოვლა', this)">
@@ -358,7 +353,6 @@
 
     </aside>
 
-    <!-- მთავარი -->
     <main class="main">
 
         <h2 id="categoryTitle">
@@ -371,7 +365,6 @@
 
 </div>
 
-<!-- + ღილაკი -->
 <button class="add-button" id="addButton" onclick="openAddProduct()">
     +
 </button>
@@ -390,8 +383,9 @@
         <input
             type="password"
             id="passwordInput"
-            placeholder="შეიყვანეთ პაროლი"
+            placeholder="შეიყვანეთ 7 ციფრიანი პაროლი"
             maxlength="7"
+            inputmode="numeric"
         >
 
         <div class="modal-buttons">
@@ -429,18 +423,24 @@
             placeholder="პროდუქტის სახელი"
         >
 
-        <select
-            id="productCategory"
-            style="width:100%;padding:12px;margin-bottom:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;"
-        >
+        <select id="productCategory">
+
             <option value="სუნამოები">🌸 სუნამოები</option>
+
             <option value="ტუშები">💄 ტუშები</option>
+
             <option value="სათვალეები">👓 სათვალეები</option>
+
             <option value="ტუჩსაცხები">💄 ტუჩსაცხები</option>
+
             <option value="კრემები">🧴 კრემები</option>
-            <option value="შამპუნები">🫧 შამპუნები</option>
+
+            <option value="შამპუნები">🧼 შამპუნები</option>
+
             <option value="სახის მოვლა">✨ სახის მოვლა</option>
+
             <option value="სხვა">🛍️ სხვა</option>
+
         </select>
 
         <textarea
@@ -464,28 +464,22 @@
 
 </div>
 
-
 <script>
 
-    /* ადმინის პაროლი */
     const ADMIN_PASSWORD = "1518079";
 
-    /* ადმინის მდგომარეობა */
     let isAdmin = false;
 
-    /* მიმდინარე კატეგორია */
     let currentCategory = "ყველა";
 
-    /* პროდუქტები */
-    let products = JSON.parse(
-        localStorage.getItem("nenaProducts")
-    ) || [];
+    let products =
+        JSON.parse(localStorage.getItem("nenaProducts")) || [];
 
 
-    /* პროდუქტების ჩვენება */
     function renderProducts() {
 
-        const container = document.getElementById("products");
+        const container =
+            document.getElementById("products");
 
         container.innerHTML = "";
 
@@ -493,9 +487,11 @@
 
         if (currentCategory !== "ყველა") {
 
-            filteredProducts = products.filter(
-                product => product.category === currentCategory
-            );
+            filteredProducts =
+                products.filter(
+                    product =>
+                        product.category === currentCategory
+                );
 
         }
 
@@ -507,16 +503,19 @@
             return;
         }
 
-
         filteredProducts.forEach(product => {
 
-            const card = document.createElement("div");
+            const card =
+                document.createElement("div");
 
             card.className = "product";
 
             card.innerHTML = `
 
-                <img src="${product.image}" alt="პროდუქტი">
+                <img
+                    src="${product.image}"
+                    alt="პროდუქტი"
+                >
 
                 <div class="product-content">
 
@@ -546,26 +545,27 @@
     }
 
 
-    /* კატეგორიის არჩევა */
     function showCategory(category, button) {
 
         currentCategory = category;
 
         document
             .querySelectorAll(".category")
-            .forEach(btn => btn.classList.remove("active"));
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
 
         button.classList.add("active");
 
         if (category === "ყველა") {
 
-            document.getElementById("categoryTitle").innerText =
-                "ყველა პროდუქტი";
+            document.getElementById("categoryTitle")
+                .innerText = "ყველა პროდუქტი";
 
         } else {
 
-            document.getElementById("categoryTitle").innerText =
-                category;
+            document.getElementById("categoryTitle")
+                .innerText = category;
 
         }
 
@@ -574,34 +574,35 @@
     }
 
 
-    /* შესვლის ფანჯრის გახსნა */
     function openLogin() {
 
-        document.getElementById("loginModal").style.display =
-            "flex";
+        document.getElementById("loginModal")
+            .style.display = "flex";
 
-        document.getElementById("passwordInput").value = "";
+        document.getElementById("passwordInput")
+            .value = "";
 
-        document.getElementById("loginError").style.display =
-            "none";
+        document.getElementById("loginError")
+            .style.display = "none";
 
         setTimeout(() => {
-            document.getElementById("passwordInput").focus();
+
+            document.getElementById("passwordInput")
+                .focus();
+
         }, 100);
 
     }
 
 
-    /* შესვლის ფანჯრის დახურვა */
     function closeLogin() {
 
-        document.getElementById("loginModal").style.display =
-            "none";
+        document.getElementById("loginModal")
+            .style.display = "none";
 
     }
 
 
-    /* შესვლა */
     function login() {
 
         const password =
@@ -613,64 +614,59 @@
 
             closeLogin();
 
-            document.getElementById("loginButton").style.display =
-                "none";
+            document.getElementById("loginButton")
+                .style.display = "none";
 
-            document.getElementById("logoutButton").style.display =
-                "block";
+            document.getElementById("logoutButton")
+                .style.display = "block";
 
-            document.getElementById("addButton").style.display =
-                "block";
+            document.getElementById("addButton")
+                .style.display = "block";
 
             renderProducts();
 
         } else {
 
-            document.getElementById("loginError").style.display =
-                "block";
+            document.getElementById("loginError")
+                .style.display = "block";
 
         }
 
     }
 
 
-    /* გასვლა */
     function logout() {
 
         isAdmin = false;
 
-        document.getElementById("loginButton").style.display =
-            "block";
+        document.getElementById("loginButton")
+            .style.display = "block";
 
-        document.getElementById("logoutButton").style.display =
-            "none";
+        document.getElementById("logoutButton")
+            .style.display = "none";
 
-        document.getElementById("addButton").style.display =
-            "none";
+        document.getElementById("addButton")
+            .style.display = "none";
 
         renderProducts();
 
     }
 
 
-    /* პროდუქტის ფანჯრის გახსნა */
     function openAddProduct() {
 
-        if (!isAdmin) {
-            return;
-        }
+        if (!isAdmin) return;
 
-        document.getElementById("productModal").style.display =
-            "flex";
+        document.getElementById("productModal")
+            .style.display = "flex";
 
     }
 
 
-    /* პროდუქტის ფანჯრის დახურვა */
     function closeProductModal() {
 
-        document.getElementById("productModal").style.display =
-            "none";
+        document.getElementById("productModal")
+            .style.display = "none";
 
         document.getElementById("productImage").value = "";
 
@@ -681,24 +677,24 @@
     }
 
 
-    /* პროდუქტის დამატება */
     function addProduct() {
 
-        if (!isAdmin) {
-            return;
-        }
+        if (!isAdmin) return;
 
         const imageInput =
             document.getElementById("productImage");
 
         const name =
-            document.getElementById("productName").value.trim();
+            document.getElementById("productName")
+                .value.trim();
 
         const category =
-            document.getElementById("productCategory").value;
+            document.getElementById("productCategory")
+                .value;
 
         const description =
-            document.getElementById("productDescription").value.trim();
+            document.getElementById("productDescription")
+                .value.trim();
 
 
         if (!imageInput.files[0]) {
@@ -717,11 +713,9 @@
         }
 
 
-        const file =
-            imageInput.files[0];
+        const file = imageInput.files[0];
 
-        const reader =
-            new FileReader();
+        const reader = new FileReader();
 
 
         reader.onload = function(event) {
@@ -762,25 +756,19 @@
     }
 
 
-    /* პროდუქტის წაშლა */
     function deleteProduct(id) {
 
-        if (!isAdmin) {
-            return;
-        }
+        if (!isAdmin) return;
 
-
-        const confirmDelete =
-            confirm("ნამდვილად გსურთ პროდუქტის წაშლა?");
-
-
-        if (!confirmDelete) {
+        if (!confirm("ნამდვილად გსურთ პროდუქტის წაშლა?")) {
             return;
         }
 
 
         products =
-            products.filter(product => product.id !== id);
+            products.filter(
+                product => product.id !== id
+            );
 
 
         localStorage.setItem(
@@ -794,7 +782,6 @@
     }
 
 
-    /* უსაფრთხო ტექსტის ჩვენება */
     function escapeHtml(text) {
 
         const div =
@@ -807,7 +794,6 @@
     }
 
 
-    /* საწყისი ჩვენება */
     renderProducts();
 
 </script>
