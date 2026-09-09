@@ -1,445 +1,630 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nena</title>
+<title>Nena</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff7fb;
-            color: #333;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f5f7;
+    color: #333;
+}
 
-        /* ზედა სათაური */
-        header {
-            background: #d94f8a;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
+header {
+    background: #d86b91;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
 
-        header h1 {
-            font-size: 32px;
-        }
+.layout {
+    display: flex;
+    min-height: calc(100vh - 75px);
+}
 
-        /* მთავარი განლაგება */
-        .layout {
-            display: flex;
-            min-height: calc(100vh - 75px);
-        }
+.sidebar {
+    width: 240px;
+    background: white;
+    padding: 20px 12px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+}
 
-        /* მარცხენა სარჩევი */
-        .sidebar {
-            width: 240px;
-            background: white;
-            padding: 20px 12px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 75px;
-            height: calc(100vh - 75px);
-            overflow-y: auto;
-        }
+.sidebar h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #d14f7c;
+}
 
-        .sidebar h2 {
-            text-align: center;
-            color: #d94f8a;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
+.category {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 13px 10px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
 
-        .category {
-            width: 100%;
-            border: none;
-            background: white;
-            padding: 13px 12px;
-            margin-bottom: 8px;
-            border-radius: 10px;
-            text-align: left;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+.category:hover,
+.category.active {
+    background: #f7dce7;
+    color: #c63f6d;
+    font-weight: bold;
+}
 
-        .category:hover {
-            background: #ffe1ed;
-        }
+.main {
+    flex: 1;
+    padding: 25px;
+}
 
-        .category.active {
-            background: #d94f8a;
-            color: white;
-        }
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
 
-        /* მთავარი ნაწილი */
-        main {
-            flex: 1;
-            padding: 30px;
-        }
+#categoryTitle {
+    margin: 0;
+    color: #c63f6d;
+}
 
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+.add-button {
+    background: #d14f7c;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-        .title h2 {
-            color: #d94f8a;
-            font-size: 28px;
-        }
+.add-button:hover {
+    background: #b83d68;
+}
 
-        /* პროდუქტები */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: auto;
-        }
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
 
-        .product {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.10);
-            transition: 0.2s;
-        }
+.product {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+    padding-bottom: 15px;
+}
 
-        .product:hover {
-            transform: translateY(-4px);
-        }
+.product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
 
-        .product img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            display: block;
-        }
+.product-content {
+    padding: 15px;
+}
 
-        .product-info {
-            padding: 17px;
-        }
+.product h3 {
+    margin: 0 0 8px;
+    color: #c63f6d;
+}
 
-        .product-info h3 {
-            color: #d94f8a;
-            font-size: 19px;
-            margin-bottom: 9px;
-        }
+.product p {
+    margin: 0 0 12px;
+    line-height: 1.5;
+}
 
-        .product-info p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+.delete-button {
+    border: none;
+    background: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+}
 
-        /* როცა კატეგორიაში პროდუქტი არ არის */
-        .empty {
-            text-align: center;
-            padding: 50px 20px;
-            color: #999;
-            font-size: 18px;
-        }
+.empty {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    color: #777;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #888;
-        }
+/* ფანჯარა */
 
-        /* ტელეფონი */
-        @media (max-width: 700px) {
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
 
-            .layout {
-                display: block;
-            }
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 18px;
+    padding: 25px;
+}
 
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-                padding: 15px 10px;
-            }
+.modal-box h2 {
+    margin-top: 0;
+    color: #c63f6d;
+}
 
-            .sidebar h2 {
-                width: 100%;
-            }
+.modal-box label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-            .category {
-                width: 48%;
-                display: inline-block;
-                margin: 1%;
-            }
+.modal-box input,
+.modal-box textarea,
+.modal-box select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
 
-            main {
-                padding: 15px;
-            }
+.modal-box textarea {
+    height: 110px;
+    resize: vertical;
+}
 
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
 
-            .product img {
-                height: 170px;
-            }
+.save-button {
+    flex: 1;
+    background: #d14f7c;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
-            .product-info {
-                padding: 12px;
-            }
+.cancel-button {
+    flex: 1;
+    background: #ddd;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
-            .product-info h3 {
-                font-size: 16px;
-            }
+@media (max-width: 700px) {
 
-            .product-info p {
-                font-size: 13px;
-            }
-        }
-    </style>
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .sidebar h2 {
+        display: none;
+    }
+
+    .category {
+        min-width: 130px;
+        text-align: center;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>🌸 Nena</h1>
+    Nena
 </header>
 
 <div class="layout">
 
-    <!-- მარცხენა სარჩევი -->
     <aside class="sidebar">
 
         <h2>სარჩევი</h2>
 
-        <button class="category active"
-                onclick="showCategory('ყველა', this)">
-            🏠 მთავარი
+        <button class="category active" onclick="showCategory('ყველა', this)">
+            🏠 ყველა
         </button>
 
-        <button class="category"
-                onclick="showCategory('სუნამოები', this)">
-            🌸 სუნამოები
+        <button class="category" onclick="showCategory('სუნამოები', this)">
+            🧴 სუნამოები
         </button>
 
-        <button class="category"
-                onclick="showCategory('ტუშები', this)">
-            👁️ ტუშები
+        <button class="category" onclick="showCategory('ტუშები', this)">
+            💄 ტუშები
         </button>
 
-        <button class="category"
-                onclick="showCategory('სათვალეები', this)">
-            🕶️ სათვალეები
+        <button class="category" onclick="showCategory('სათვალეები', this)">
+            👓 სათვალეები
         </button>
 
-        <button class="category"
-                onclick="showCategory('კრასკები', this)">
-            💄 კრასკები
+        <button class="category" onclick="showCategory('ტუჩსაცხები', this)">
+            💄 ტუჩსაცხები
         </button>
 
-        <button class="category"
-                onclick="showCategory('ტუჩსაცხები', this)">
-            💋 ტუჩსაცხები
-        </button>
-
-        <button class="category"
-                onclick="showCategory('კრემები', this)">
+        <button class="category" onclick="showCategory('კრემები', this)">
             🧴 კრემები
         </button>
 
-        <button class="category"
-                onclick="showCategory('შამპუნები', this)">
-            🫧 შამპუნები
+        <button class="category" onclick="showCategory('შამპუნები', this)">
+            🧴 შამპუნები
         </button>
 
-        <button class="category"
-                onclick="showCategory('სახის მოვლა', this)">
-            ✨ სახის მოვლა
+        <button class="category" onclick="showCategory('სახის მოვლა', this)">
+            💆 სახის მოვლა
         </button>
 
-        <button class="category"
-                onclick="showCategory('სხვა', this)">
-            📦 სხვა
+        <button class="category" onclick="showCategory('სხვა', this)">
+            🛍️ სხვა
         </button>
 
     </aside>
 
-    <!-- პროდუქტების ნაწილი -->
-    <main>
 
-        <div class="title">
-            <h2 id="categoryTitle">ყველა პროდუქტი</h2>
+    <main class="main">
+
+        <div class="top">
+
+            <h1 id="categoryTitle">
+                ყველა პროდუქტი
+            </h1>
+
+            <button class="add-button" onclick="openModal()">
+                + პროდუქტის დამატება
+            </button>
+
         </div>
 
-        <div class="products" id="products"></div>
-
-        <footer>
-            © 2026 Nena
-        </footer>
+        <div id="products" class="products"></div>
 
     </main>
 
 </div>
 
+
+<!-- პროდუქტის დამატების ფანჯარა -->
+
+<div id="modal" class="modal">
+
+    <div class="modal-box">
+
+        <h2>ახალი პროდუქტი</h2>
+
+        <label>პროდუქტის სახელი</label>
+        <input
+            type="text"
+            id="productName"
+            placeholder="მაგ: Dior Sauvage"
+        >
+
+        <label>კატეგორია</label>
+
+        <select id="productCategory">
+
+            <option value="სუნამოები">🧴 სუნამოები</option>
+            <option value="ტუშები">💄 ტუშები</option>
+            <option value="სათვალეები">👓 სათვალეები</option>
+            <option value="ტუჩსაცხები">💄 ტუჩსაცხები</option>
+            <option value="კრემები">🧴 კრემები</option>
+            <option value="შამპუნები">🧴 შამპუნები</option>
+            <option value="სახის მოვლა">💆 სახის მოვლა</option>
+            <option value="სხვა">🛍️ სხვა</option>
+
+        </select>
+
+        <label>აღწერა</label>
+
+        <textarea
+            id="productDescription"
+            placeholder="დაწერე პროდუქტის აღწერა..."
+        ></textarea>
+
+        <label>სურათი</label>
+
+        <input
+            type="file"
+            id="productImage"
+            accept="image/*"
+        >
+
+        <div class="modal-buttons">
+
+            <button class="cancel-button" onclick="closeModal()">
+                გაუქმება
+            </button>
+
+            <button class="save-button" onclick="addProduct()">
+                დამატება
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
-    /*
-       აქ მოგვიანებით დავამატებთ პროდუქტებს.
+let products = JSON.parse(localStorage.getItem("nenaProducts")) || [];
 
-       თითოეულ პროდუქტს ექნება:
-       category = კატეგორია
-       name = პროდუქტის სახელი
-       description = აღწერა
-       image = ფოტო
-    */
-
-    const products = [
-
-        {
-            category: "სუნამოები",
-            name: "სუნამო",
-            description: "აქ ჩაიწერება სუნამოს აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "ტუშები",
-            name: "ტუში",
-            description: "აქ ჩაიწერება ტუშის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "სათვალეები",
-            name: "სათვალე",
-            description: "აქ ჩაიწერება სათვალის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "კრასკები",
-            name: "კრასკა",
-            description: "აქ ჩაიწერება პროდუქტის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "ტუჩსაცხები",
-            name: "ტუჩსაცხი",
-            description: "აქ ჩაიწერება ტუჩსაცხის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "კრემები",
-            name: "კრემი",
-            description: "აქ ჩაიწერება კრემის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "შამპუნები",
-            name: "შამპუნი",
-            description: "აქ ჩაიწერება შამპუნის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "სახის მოვლა",
-            name: "სახის მოვლა",
-            description: "აქ ჩაიწერება პროდუქტის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        },
-
-        {
-            category: "სხვა",
-            name: "სხვა პროდუქტი",
-            description: "აქ ჩაიწერება პროდუქტის აღწერა.",
-            image: "https://via.placeholder.com/600x600?text=Nena"
-        }
-
-    ];
+let currentCategory = "ყველა";
 
 
-    function showCategory(category, button) {
+function saveProducts() {
+    localStorage.setItem(
+        "nenaProducts",
+        JSON.stringify(products)
+    );
+}
 
-        const container = document.getElementById("products");
-        const title = document.getElementById("categoryTitle");
 
-        container.innerHTML = "";
+function openModal() {
 
-        if (category === "ყველა") {
-            title.textContent = "ყველა პროდუქტი";
-        } else {
-            title.textContent = category;
-        }
+    document.getElementById("modal").style.display = "flex";
 
-        document.querySelectorAll(".category").forEach(function(btn) {
-            btn.classList.remove("active");
-        });
+}
 
-        button.classList.add("active");
 
-        let filteredProducts;
+function closeModal() {
 
-        if (category === "ყველა") {
-            filteredProducts = products;
-        } else {
-            filteredProducts = products.filter(function(product) {
-                return product.category === category;
-            });
-        }
+    document.getElementById("modal").style.display = "none";
 
-        if (filteredProducts.length === 0) {
+    document.getElementById("productName").value = "";
+    document.getElementById("productDescription").value = "";
+    document.getElementById("productImage").value = "";
 
-            container.innerHTML = `
-                <div class="empty">
-                    ამ კატეგორიაში პროდუქტები ჯერ არ არის.
-                </div>
-            `;
+}
 
-            return;
-        }
 
-        filteredProducts.forEach(function(product) {
+function addProduct() {
 
-            const card = document.createElement("div");
+    const name =
+        document.getElementById("productName").value.trim();
 
-            card.className = "product";
+    const category =
+        document.getElementById("productCategory").value;
 
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+    const description =
+        document.getElementById("productDescription").value.trim();
 
-                <div class="product-info">
+    const imageFile =
+        document.getElementById("productImage").files[0];
 
-                    <h3>${product.name}</h3>
 
-                    <p>${product.description}</p>
-
-                </div>
-            `;
-
-            container.appendChild(card);
-
-        });
+    if (!name) {
+        alert("ჩაწერე პროდუქტის სახელი");
+        return;
     }
 
 
-    // საიტის გახსნისას ყველა პროდუქტი გამოჩნდეს
-    showCategory(
-        "ყველა",
-        document.querySelector(".category.active")
+    if (!description) {
+        alert("ჩაწერე პროდუქტის აღწერა");
+        return;
+    }
+
+
+    if (!imageFile) {
+        alert("აირჩიე პროდუქტის სურათი");
+        return;
+    }
+
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(e) {
+
+        const product = {
+
+            id: Date.now(),
+
+            name: name,
+
+            category: category,
+
+            description: description,
+
+            image: e.target.result
+
+        };
+
+
+        products.push(product);
+
+        saveProducts();
+
+        closeModal();
+
+        showProducts();
+
+    };
+
+
+    reader.readAsDataURL(imageFile);
+
+}
+
+
+function deleteProduct(id) {
+
+    if (!confirm("ნამდვილად გინდა პროდუქტის წაშლა?")) {
+        return;
+    }
+
+
+    products = products.filter(
+        product => product.id !== id
     );
+
+
+    saveProducts();
+
+    showProducts();
+
+}
+
+
+function showCategory(category, button) {
+
+    currentCategory = category;
+
+
+    document.querySelectorAll(".category")
+        .forEach(btn => btn.classList.remove("active"));
+
+
+    button.classList.add("active");
+
+
+    if (category === "ყველა") {
+
+        document.getElementById("categoryTitle").innerText =
+            "ყველა პროდუქტი";
+
+    } else {
+
+        document.getElementById("categoryTitle").innerText =
+            category;
+
+    }
+
+
+    showProducts();
+
+}
+
+
+function showProducts() {
+
+    const container =
+        document.getElementById("products");
+
+
+    container.innerHTML = "";
+
+
+    let filteredProducts;
+
+
+    if (currentCategory === "ყველა") {
+
+        filteredProducts = products;
+
+    } else {
+
+        filteredProducts =
+            products.filter(
+                product => product.category === currentCategory
+            );
+
+    }
+
+
+    if (filteredProducts.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                ამ კატეგორიაში ჯერ პროდუქტი არ არის.
+                <br><br>
+                დააჭირე <b>+ პროდუქტის დამატება</b>-ს.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filteredProducts.forEach(product => {
+
+        const card = document.createElement("div");
+
+        card.className = "product";
+
+
+        card.innerHTML = `
+
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+            >
+
+            <div class="product-content">
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p>
+                    ${product.description}
+                </p>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteProduct(${product.id})"
+                >
+                    წაშლა
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+showProducts();
 
 </script>
 
