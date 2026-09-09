@@ -1,508 +1,358 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ნენა</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 ნენა</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fff;
-    color: #333;
-}
-
-header {
-    background: white;
-    text-align: center;
-    padding: 20px 10px;
-    border-bottom: 2px solid #f3b6d2;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-header h1 {
-    margin: 0;
-    color: #ff4f9a;
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.layout {
-    display: flex;
-    min-height: calc(100vh - 80px);
-}
-
-.sidebar {
-    width: 240px;
-    background: #fff0f7;
-    padding: 15px;
-    border-right: 1px solid #f3c4d9;
-    flex-shrink: 0;
-}
-
-.sidebar h3 {
-    margin-top: 5px;
-    color: #ff4f9a;
-}
-
-.category {
-    width: 100%;
-    border: none;
-    background: white;
-    padding: 12px 10px;
-    margin: 5px 0;
-    border-radius: 10px;
-    text-align: left;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.category:hover {
-    background: #ffdbea;
-}
-
-.admin-login {
-    margin-top: 25px;
-    border-top: 1px solid #f3c4d9;
-    padding-top: 15px;
-}
-
-.login-button {
-    width: 100%;
-    border: none;
-    background: #ff4f9a;
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.admin-status {
-    display: none;
-    color: #ff4f9a;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.logout-button {
-    width: 100%;
-    border: none;
-    background: #777;
-    color: white;
-    padding: 9px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-main {
-    flex: 1;
-    padding: 20px;
-    position: relative;
-}
-
-#categoryTitle {
-    margin-top: 0;
-    color: #ff4f9a;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.product {
-    background: white;
-    border: 1px solid #eee;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.product img {
-    width: 100%;
-    height: 230px;
-    object-fit: cover;
-    display: block;
-}
-
-.product-info {
-    padding: 12px;
-}
-
-.product-info h3 {
-    margin: 0 0 8px;
-    color: #ff4f9a;
-}
-
-.product-info p {
-    margin: 0;
-    line-height: 1.5;
-}
-
-.delete-button {
-    margin-top: 12px;
-    width: 100%;
-    border: none;
-    background: #e53935;
-    color: white;
-    padding: 9px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: none;
-}
-
-#addButton {
-    display: none;
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    border: none;
-    background: #ff4f9a;
-    color: white;
-    font-size: 35px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-    z-index: 20;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.modal-box {
-    width: 100%;
-    max-width: 430px;
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-}
-
-.modal-box h2 {
-    margin-top: 0;
-    color: #ff4f9a;
-}
-
-.modal-box input,
-.modal-box textarea,
-.modal-box select {
-    width: 100%;
-    padding: 11px;
-    margin: 7px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.modal-box textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.modal-buttons button {
-    flex: 1;
-    border: none;
-    padding: 11px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.save-button {
-    background: #ff4f9a;
-    color: white;
-}
-
-.cancel-button {
-    background: #777;
-    color: white;
-}
-
-.loading {
-    text-align: center;
-    color: #777;
-    padding: 30px;
-}
-
-@media(max-width:700px) {
-    .sidebar {
-        width: 180px;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    .category {
-        font-size: 14px;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff7fb;
+      color: #333;
     }
 
-    .products {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 10px;
+    header {
+      background: white;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #ff4f9a;
+      font-size: 30px;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px;
+      background: #fff;
+    }
+
+    .menu button {
+      border: none;
+      background: #ffe3f0;
+      color: #d9367d;
+      padding: 10px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .menu button:hover {
+      background: #ffc6df;
+    }
+
+    #products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .product {
+      background: white;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
     }
 
     .product img {
-        height: 180px;
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #fafafa;
     }
 
-    main {
-        padding: 10px;
-    }
-}
-
-@media(max-width:500px) {
-    .layout {
-        display: block;
+    .product h3 {
+      margin: 10px 0 5px;
+      color: #d9367d;
     }
 
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #f3c4d9;
+    .product p {
+      margin: 5px 0;
+      color: #666;
     }
 
-    .products {
-        grid-template-columns: 1fr;
+    .delete-btn {
+      display: none;
+      width: 100%;
+      border: none;
+      background: #ff4d4d;
+      color: white;
+      padding: 9px;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
     }
-}
-</style>
+
+    body.admin .delete-btn {
+      display: block;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 30px;
+      color: #999;
+    }
+
+    #addButton {
+      display: none;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background: #ff4f9a;
+      color: white;
+      font-size: 35px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      z-index: 50;
+    }
+
+    body.admin #addButton {
+      display: block;
+    }
+
+    .login-area {
+      text-align: center;
+      padding: 10px;
+    }
+
+    #loginBtn,
+    #logoutBtn {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+    }
+
+    #loginBtn {
+      background: #ff4f9a;
+    }
+
+    #logoutBtn {
+      display: none;
+      background: #777;
+    }
+
+    body.admin #loginBtn {
+      display: none;
+    }
+
+    body.admin #logoutBtn {
+      display: inline-block;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 15px;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 450px;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .modal-content h2 {
+      color: #ff4f9a;
+      margin-top: 0;
+    }
+
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    .modal-content textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .modal-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .save-btn {
+      background: #ff4f9a;
+      color: white;
+    }
+
+    .cancel-btn {
+      background: #ddd;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      grid-column: 1 / -1;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <h1>🌸 ნენა</h1>
+  <h1>🌸 ნენა</h1>
 </header>
 
-<div class="layout">
-
-    <aside class="sidebar">
-
-        <h3>სარჩევი</h3>
-
-        <button class="category" onclick="showCategory('ყველა')">
-            🏠 მთავარი
-        </button>
-
-        <button class="category" onclick="showCategory('სუნამოები')">
-            🌸 სუნამოები
-        </button>
-
-        <button class="category" onclick="showCategory('ტუშები')">
-            💄 ტუშები
-        </button>
-
-        <button class="category" onclick="showCategory('სათვალეები')">
-            👓 სათვალეები
-        </button>
-
-        <button class="category" onclick="showCategory('ტუჩსაცხები')">
-            💄 ტუჩსაცხები
-        </button>
-
-        <button class="category" onclick="showCategory('კრემები')">
-            🧴 კრემები
-        </button>
-
-        <button class="category" onclick="showCategory('შამპუნები')">
-            🫧 შამპუნები
-        </button>
-
-        <button class="category" onclick="showCategory('სახის მოვლა')">
-            🧖 სახის მოვლა
-        </button>
-
-        <button class="category" onclick="showCategory('სხვა')">
-            🛍️ სხვა
-        </button>
-
-        <div class="admin-login">
-
-            <div id="adminStatus" class="admin-status">
-                🔐 ადმინი შესულია
-            </div>
-
-            <button id="loginButton"
-                    class="login-button"
-                    onclick="openLogin()">
-                🔐 შესვლა
-            </button>
-
-            <button id="logoutButton"
-                    class="logout-button"
-                    onclick="logout()"
-                    style="display:none;">
-                გასვლა
-            </button>
-
-        </div>
-
-    </aside>
-
-    <main>
-
-        <h2 id="categoryTitle">ყველა პროდუქტი</h2>
-
-        <div id="loading" class="loading">
-            პროდუქტები იტვირთება...
-        </div>
-
-        <div id="products" class="products"></div>
-
-    </main>
-
+<div class="menu">
+  <button onclick="showCategory('all')">🏠 მთავარი</button>
+  <button onclick="showCategory('სუნამოები')">🌸 სუნამოები</button>
+  <button onclick="showCategory('ტუშები')">💄 ტუშები</button>
+  <button onclick="showCategory('სათვალეები')">👓 სათვალეები</button>
+  <button onclick="showCategory('ტუჩსაცხები')">💄 ტუჩსაცხები</button>
+  <button onclick="showCategory('კრემები')">🧴 კრემები</button>
+  <button onclick="showCategory('შამპუნები')">🫧 შამპუნები</button>
+  <button onclick="showCategory('სახის მოვლა')">🧖 სახის მოვლა</button>
+  <button onclick="showCategory('სხვა')">🛍️ სხვა</button>
 </div>
+
+<div class="login-area">
+  <button id="loginBtn" onclick="openLogin()">🔐 შესვლა</button>
+  <button id="logoutBtn" onclick="logout()">გასვლა</button>
+</div>
+
+<div id="loading">
+  პროდუქტები იტვირთება...
+</div>
+
+<div id="products"></div>
 
 <button id="addButton" onclick="openAddProduct()">+</button>
 
-
 <!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2>🔐 ადმინისტრატორის შესვლა</h2>
 
-<div id="loginModal" class="modal">
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="შეიყვანე პაროლი"
+      autocomplete="current-password"
+    >
 
-    <div class="modal-box">
-
-        <h2>ადმინის შესვლა</h2>
-
-        <p>შეიყვანე 7 ციფრიანი პაროლი</p>
-
-        <input
-            id="adminPassword"
-            type="password"
-            inputmode="numeric"
-            maxlength="7"
-            placeholder="7 ციფრი"
-        >
-
-        <div class="modal-buttons">
-
-            <button class="save-button"
-                    onclick="loginAdmin()">
-                შესვლა
-            </button>
-
-            <button class="cancel-button"
-                    onclick="closeLogin()">
-                გაუქმება
-            </button>
-
-        </div>
-
+    <div class="modal-buttons">
+      <button class="save-btn" onclick="login()">შესვლა</button>
+      <button class="cancel-btn" onclick="closeLogin()">გაუქმება</button>
     </div>
-
+  </div>
 </div>
-
 
 <!-- ADD PRODUCT MODAL -->
+<div class="modal" id="addModal">
+  <div class="modal-content">
+    <h2>➕ პროდუქტის დამატება</h2>
 
-<div id="productModal" class="modal">
+    <input
+      id="productName"
+      type="text"
+      placeholder="პროდუქტის სახელი"
+    >
 
-    <div class="modal-box">
+    <select id="productCategory">
+      <option value="სუნამოები">🌸 სუნამოები</option>
+      <option value="ტუშები">💄 ტუშები</option>
+      <option value="სათვალეები">👓 სათვალეები</option>
+      <option value="ტუჩსაცხები">💄 ტუჩსაცხები</option>
+      <option value="კრემები">🧴 კრემები</option>
+      <option value="შამპუნები">🫧 შამპუნები</option>
+      <option value="სახის მოვლა">🧖 სახის მოვლა</option>
+      <option value="სხვა">🛍️ სხვა</option>
+    </select>
 
-        <h2>პროდუქტის დამატება</h2>
+    <input
+      id="productImage"
+      type="file"
+      accept="image/*"
+    >
 
-        <input
-            id="productName"
-            type="text"
-            placeholder="პროდუქტის სახელი"
-        >
+    <textarea
+      id="productDescription"
+      placeholder="აღწერა / კომენტარი"
+    ></textarea>
 
-        <select id="productCategory">
-
-            <option value="სუნამოები">🌸 სუნამოები</option>
-            <option value="ტუშები">💄 ტუშები</option>
-            <option value="სათვალეები">👓 სათვალეები</option>
-            <option value="ტუჩსაცხები">💄 ტუჩსაცხები</option>
-            <option value="კრემები">🧴 კრემები</option>
-            <option value="შამპუნები">🫧 შამპუნები</option>
-            <option value="სახის მოვლა">🧖 სახის მოვლა</option>
-            <option value="სხვა">🛍️ სხვა</option>
-
-        </select>
-
-        <input
-            id="productImage"
-            type="file"
-            accept="image/*"
-        >
-
-        <textarea
-            id="productDescription"
-            placeholder="კომენტარი / აღწერა"
-        ></textarea>
-
-        <div class="modal-buttons">
-
-            <button
-                class="save-button"
-                onclick="addProduct()">
-                ატვირთვა
-            </button>
-
-            <button
-                class="cancel-button"
-                onclick="closeProductModal()">
-                გაუქმება
-            </button>
-
-        </div>
-
+    <div class="modal-buttons">
+      <button class="save-btn" onclick="addProduct()">დამატება</button>
+      <button class="cancel-btn" onclick="closeAddProduct()">გაუქმება</button>
     </div>
-
+  </div>
 </div>
-
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-import {
+  import {
     getAuth,
     signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import {
+  import {
     getFirestore,
     collection,
     addDoc,
     deleteDoc,
     doc,
     onSnapshot,
-    query,
-    orderBy,
     serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE */
-
-const firebaseConfig = {
-
+  // FIREBASE
+  const firebaseConfig = {
     apiKey: "AIzaSyDAOSh7080W70k0wLsL6w3I0ru1qRyhtgM",
     authDomain: "nena-bf825.firebaseapp.com",
     projectId: "nena-bf825",
@@ -510,559 +360,547 @@ const firebaseConfig = {
     messagingSenderId: "552511105234",
     appId: "1:552511105234:web:38022acc39761284a5650b",
     measurementId: "G-1YB7NH25M5"
-
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
+  };
 
 
-/* ADMIN */
+  const app = initializeApp(firebaseConfig);
 
-const ADMIN_EMAIL = "Valerychutlashvili@gmail.com";
+  const auth = getAuth(app);
 
-const ADMIN_UID =
+  const db = getFirestore(app);
+
+
+  const ADMIN_EMAIL = "Valerychutlashvili@gmail.com";
+
+  const ADMIN_UID =
     "J9t8FfYXDxQI8q1YkDZOhtLmrLh2";
 
 
-let isAdmin = false;
+  let products = [];
 
-let currentCategory = "ყველა";
-
-let products = [];
+  let currentCategory = "all";
 
 
-/* ELEMENTS */
-
-const productsDiv =
-    document.getElementById("products");
-
-const loading =
+  const loading =
     document.getElementById("loading");
 
-const addButton =
-    document.getElementById("addButton");
+  const productsContainer =
+    document.getElementById("products");
 
-const loginButton =
-    document.getElementById("loginButton");
 
-const logoutButton =
-    document.getElementById("logoutButton");
+  // LOGIN
+  window.openLogin = function () {
 
-const adminStatus =
-    document.getElementById("adminStatus");
+    document.getElementById("loginModal").style.display = "flex";
 
+  };
 
-/* LOAD PRODUCTS */
 
-const productsQuery =
-    query(
-        collection(db, "products"),
-        orderBy("createdAt", "desc")
-    );
+  window.closeLogin = function () {
 
+    document.getElementById("loginModal").style.display = "none";
 
-onSnapshot(productsQuery, (snapshot) => {
+  };
 
-    products = [];
 
-    snapshot.forEach((item) => {
-
-        products.push({
-            id: item.id,
-            ...item.data()
-        });
-
-    });
-
-    loading.style.display = "none";
-
-    showCategory(currentCategory);
-
-}, (error) => {
-
-    console.error(error);
-
-    loading.innerText =
-        "პროდუქტების ჩატვირთვისას შეცდომაა.";
-
-});
-
-
-/* CATEGORY */
-
-window.showCategory = function(category) {
-
-    currentCategory = category;
-
-    const title =
-        document.getElementById("categoryTitle");
-
-    if (category === "ყველა") {
-
-        title.innerText = "ყველა პროდუქტი";
-
-    } else {
-
-        title.innerText = category;
-
-    }
-
-    productsDiv.innerHTML = "";
-
-    const filtered =
-        category === "ყველა"
-        ? products
-        : products.filter(p => p.category === category);
-
-
-    if (filtered.length === 0) {
-
-        productsDiv.innerHTML =
-            "<p>ამ კატეგორიაში პროდუქტი ჯერ არ არის.</p>";
-
-        return;
-    }
-
-
-    filtered.forEach(product => {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "product";
-
-
-        const img =
-            document.createElement("img");
-
-        img.src = product.image;
-
-        img.alt = product.name;
-
-
-        const info =
-            document.createElement("div");
-
-        info.className = "product-info";
-
-
-        const name =
-            document.createElement("h3");
-
-        name.innerText =
-            product.name || "პროდუქტი";
-
-
-        const description =
-            document.createElement("p");
-
-        description.innerText =
-            product.description || "";
-
-
-        info.appendChild(name);
-
-        info.appendChild(description);
-
-
-        if (isAdmin) {
-
-            const deleteButton =
-                document.createElement("button");
-
-            deleteButton.className =
-                "delete-button";
-
-            deleteButton.style.display =
-                "block";
-
-            deleteButton.innerText =
-                "🗑️ წაშლა";
-
-
-            deleteButton.onclick =
-                () => deleteProduct(product.id);
-
-
-            info.appendChild(deleteButton);
-
-        }
-
-
-        card.appendChild(img);
-
-        card.appendChild(info);
-
-        productsDiv.appendChild(card);
-
-    });
-
-};
-
-
-/* LOGIN */
-
-window.openLogin = function() {
-
-    document.getElementById("loginModal")
-        .style.display = "flex";
-
-    document.getElementById("adminPassword")
-        .value = "";
-
-};
-
-
-window.closeLogin = function() {
-
-    document.getElementById("loginModal")
-        .style.display = "none";
-
-};
-
-
-window.loginAdmin = async function() {
+  window.login = async function () {
 
     const password =
-        document.getElementById("adminPassword").value.trim();
+      document.getElementById("adminPassword").value.trim();
 
 
-    if (!/^\d{7}$/.test(password)) {
+    if (!password) {
 
-        alert("შეიყვანე ზუსტად 7 ციფრი.");
+      alert("შეიყვანე პაროლი");
 
-        return;
+      return;
     }
 
 
     try {
 
-        const result =
-            await signInWithEmailAndPassword(
-                auth,
-                ADMIN_EMAIL,
-                password
-            );
+      const result =
+        await signInWithEmailAndPassword(
+          auth,
+          ADMIN_EMAIL,
+          password
+        );
 
 
-        if (result.user.uid !== ADMIN_UID) {
+      if (result.user.uid !== ADMIN_UID) {
 
-            await signOut(auth);
+        await signOut(auth);
 
-            alert("ეს ანგარიში ადმინი არ არის.");
+        alert("ადმინისტრატორის ანგარიში არასწორია");
 
-            return;
-        }
+        return;
+      }
 
 
-        closeLogin();
+      closeLogin();
+
+      alert("წარმატებით შეხვედი ✅");
 
     } catch (error) {
 
-        console.error(error);
+      console.error(error);
 
-        alert(
-            "პაროლი არასწორია ან Firebase-ში მომხმარებელი ვერ მოიძებნა."
+      alert("პაროლი არასწორია ან შესვლა ვერ მოხერხდა");
+
+    }
+
+  };
+
+
+  // LOGOUT
+  window.logout = async function () {
+
+    try {
+
+      await signOut(auth);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  };
+
+
+  // AUTH STATE
+  onAuthStateChanged(auth, (user) => {
+
+    if (user && user.uid === ADMIN_UID) {
+
+      document.body.classList.add("admin");
+
+    } else {
+
+      document.body.classList.remove("admin");
+
+    }
+
+  });
+
+
+  // REALTIME FIRESTORE
+  const productsRef =
+    collection(db, "products");
+
+
+  onSnapshot(
+    productsRef,
+
+    (snapshot) => {
+
+      products = [];
+
+      snapshot.forEach((item) => {
+
+        products.push({
+          id: item.id,
+          ...item.data()
+        });
+
+      });
+
+
+      // ახალი პროდუქტები ზემოთ
+      products.sort((a, b) => {
+
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return bTime - aTime;
+
+      });
+
+
+      loading.style.display = "none";
+
+      showCategory(currentCategory);
+
+    },
+
+    (error) => {
+
+      console.error(
+        "Firestore error:",
+        error
+      );
+
+      loading.innerText =
+        "პროდუქტების ჩატვირთვისას შეცდომაა";
+
+    }
+
+  );
+
+
+  // SHOW CATEGORY
+  window.showCategory = function (category) {
+
+    currentCategory = category;
+
+    productsContainer.innerHTML = "";
+
+
+    let filteredProducts;
+
+
+    if (category === "all") {
+
+      filteredProducts = products;
+
+    } else {
+
+      filteredProducts =
+        products.filter(
+          product =>
+            product.category === category
         );
 
     }
 
-};
 
+    if (filteredProducts.length === 0) {
 
-/* AUTH STATE */
+      productsContainer.innerHTML =
+        '<div class="empty">ამ კატეგორიაში პროდუქტი ჯერ არ არის 🌸</div>';
 
-onAuthStateChanged(auth, (user) => {
-
-    if (user && user.uid === ADMIN_UID) {
-
-        isAdmin = true;
-
-        loginButton.style.display = "none";
-
-        logoutButton.style.display = "block";
-
-        adminStatus.style.display = "block";
-
-        addButton.style.display = "block";
-
-    } else {
-
-        isAdmin = false;
-
-        loginButton.style.display = "block";
-
-        logoutButton.style.display = "none";
-
-        adminStatus.style.display = "none";
-
-        addButton.style.display = "none";
-
+      return;
     }
 
-    showCategory(currentCategory);
 
-});
+    filteredProducts.forEach((product) => {
 
+      const card =
+        document.createElement("div");
 
-/* LOGOUT */
-
-window.logout = async function() {
-
-    await signOut(auth);
-
-};
+      card.className = "product";
 
 
-/* ADD PRODUCT */
+      const image =
+        document.createElement("img");
 
-window.openAddProduct = function() {
+      image.src = product.image || "";
 
-    if (!isAdmin) {
-
-        alert("ადმინის შესვლა საჭიროა.");
-
-        return;
-    }
-
-    document.getElementById("productModal")
-        .style.display = "flex";
-
-};
+      image.alt = product.name || "პროდუქტი";
 
 
-window.closeProductModal = function() {
+      const title =
+        document.createElement("h3");
 
-    document.getElementById("productModal")
-        .style.display = "none";
-
-};
+      title.textContent =
+        product.name || "პროდუქტი";
 
 
-window.addProduct = async function() {
+      const categoryText =
+        document.createElement("p");
 
-    if (!isAdmin) {
+      categoryText.textContent =
+        "კატეგორია: " +
+        (product.category || "");
 
-        alert("უფლება არ გაქვს.");
 
-        return;
+      const description =
+        document.createElement("p");
+
+      description.textContent =
+        product.description || "";
+
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.className =
+        "delete-btn";
+
+      deleteButton.textContent =
+        "🗑️ წაშლა";
+
+
+      deleteButton.onclick =
+        () => deleteProduct(product.id);
+
+
+      card.appendChild(image);
+
+      card.appendChild(title);
+
+      card.appendChild(categoryText);
+
+      card.appendChild(description);
+
+      card.appendChild(deleteButton);
+
+
+      productsContainer.appendChild(card);
+
+    });
+
+  };
+
+
+  // ADD PRODUCT MODAL
+  window.openAddProduct = function () {
+
+    document.getElementById("addModal").style.display =
+      "flex";
+
+  };
+
+
+  window.closeAddProduct = function () {
+
+    document.getElementById("addModal").style.display =
+      "none";
+
+  };
+
+
+  // IMAGE COMPRESSION
+  function compressImage(file) {
+
+    return new Promise((resolve, reject) => {
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload = function (event) {
+
+        const img =
+          new Image();
+
+
+        img.onload = function () {
+
+          const maxSize = 900;
+
+          let width = img.width;
+
+          let height = img.height;
+
+
+          if (width > height) {
+
+            if (width > maxSize) {
+
+              height =
+                height * maxSize / width;
+
+              width = maxSize;
+
+            }
+
+          } else {
+
+            if (height > maxSize) {
+
+              width =
+                width * maxSize / height;
+
+              height = maxSize;
+
+            }
+
+          }
+
+
+          const canvas =
+            document.createElement("canvas");
+
+          canvas.width = width;
+
+          canvas.height = height;
+
+
+          const ctx =
+            canvas.getContext("2d");
+
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          const compressed =
+            canvas.toDataURL(
+              "image/jpeg",
+              0.65
+            );
+
+
+          resolve(compressed);
+
+        };
+
+
+        img.onerror = reject;
+
+        img.src = event.target.result;
+
+      };
+
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+
+  // ADD PRODUCT
+  window.addProduct = async function () {
+
+    const user = auth.currentUser;
+
+
+    if (!user || user.uid !== ADMIN_UID) {
+
+      alert("ჯერ ადმინისტრატორად შედი");
+
+      return;
+
     }
 
 
     const name =
-        document.getElementById("productName")
-            .value.trim();
+      document.getElementById("productName").value.trim();
+
 
     const category =
-        document.getElementById("productCategory")
-            .value;
+      document.getElementById("productCategory").value;
+
 
     const description =
-        document.getElementById("productDescription")
-            .value.trim();
+      document.getElementById("productDescription").value.trim();
+
 
     const file =
-        document.getElementById("productImage")
-            .files[0];
+      document.getElementById("productImage").files[0];
 
 
     if (!name) {
 
-        alert("ჩაწერე პროდუქტის სახელი.");
+      alert("შეიყვანე პროდუქტის სახელი");
 
-        return;
+      return;
+
     }
 
 
     if (!file) {
 
-        alert("აირჩიე სურათი.");
+      alert("აირჩიე პროდუქტის ფოტო");
 
-        return;
+      return;
+
     }
 
 
     try {
 
-        const image =
-            await compressImage(file);
+      const image =
+        await compressImage(file);
 
 
-        await addDoc(
-            collection(db, "products"),
-            {
-                name: name,
-                category: category,
-                description: description,
-                image: image,
-                createdAt: serverTimestamp()
-            }
-        );
+      await addDoc(
+        productsRef,
+        {
+          name: name,
+          category: category,
+          description: description,
+          image: image,
+          createdAt: serverTimestamp()
+        }
+      );
 
 
-        document.getElementById("productName")
-            .value = "";
+      document.getElementById("productName").value = "";
 
-        document.getElementById("productDescription")
-            .value = "";
+      document.getElementById("productDescription").value = "";
 
-        document.getElementById("productImage")
-            .value = "";
+      document.getElementById("productImage").value = "";
 
 
-        closeProductModal();
+      closeAddProduct();
 
 
-        alert("პროდუქტი წარმატებით აიტვირთა.");
+      alert("პროდუქტი დაემატა ✅");
+
 
     } catch (error) {
 
-        console.error(error);
+      console.error(error);
 
-        alert(
-            "ატვირთვისას შეცდომა მოხდა."
-        );
+      alert(
+        "პროდუქტის დამატება ვერ მოხერხდა"
+      );
 
     }
 
-};
+  };
 
 
-/* IMAGE COMPRESSION */
+  // DELETE PRODUCT
+  window.deleteProduct = async function (id) {
 
-function compressImage(file) {
-
-    return new Promise((resolve, reject) => {
-
-        const reader =
-            new FileReader();
+    const user = auth.currentUser;
 
 
-        reader.onload = function(event) {
+    if (!user || user.uid !== ADMIN_UID) {
 
-            const img =
-                new Image();
+      alert("უფლება არ გაქვს");
 
+      return;
 
-            img.onload = function() {
-
-                const maxSize = 900;
-
-                let width = img.width;
-
-                let height = img.height;
-
-
-                if (width > height && width > maxSize) {
-
-                    height =
-                        height * maxSize / width;
-
-                    width = maxSize;
-
-                } else if (height > maxSize) {
-
-                    width =
-                        width * maxSize / height;
-
-                    height = maxSize;
-
-                }
-
-
-                const canvas =
-                    document.createElement("canvas");
-
-                canvas.width =
-                    width;
-
-                canvas.height =
-                    height;
-
-
-                const ctx =
-                    canvas.getContext("2d");
-
-                ctx.drawImage(
-                    img,
-                    0,
-                    0,
-                    width,
-                    height
-                );
-
-
-                const result =
-                    canvas.toDataURL(
-                        "image/jpeg",
-                        0.65
-                    );
-
-
-                resolve(result);
-
-            };
-
-
-            img.onerror = reject;
-
-            img.src =
-                event.target.result;
-
-        };
-
-
-        reader.onerror = reject;
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-/* DELETE */
-
-async function deleteProduct(id) {
-
-    if (!isAdmin) {
-
-        alert("უფლება არ გაქვს.");
-
-        return;
     }
 
 
-    if (!confirm(
-        "ნამდვილად გინდა პროდუქტის წაშლა?"
-    )) {
+    const confirmed =
+      confirm("ნამდვილად გინდა პროდუქტის წაშლა?");
 
-        return;
+
+    if (!confirmed) {
+
+      return;
+
     }
 
 
     try {
 
-        await deleteDoc(
-            doc(db, "products", id)
-        );
+      await deleteDoc(
+        doc(db, "products", id)
+      );
+
+
+      alert("პროდუქტი წაიშალა ✅");
+
 
     } catch (error) {
 
-        console.error(error);
+      console.error(error);
 
-        alert(
-            "წაშლისას შეცდომა მოხდა."
-        );
+      alert(
+        "პროდუქტის წაშლა ვერ მოხერხდა"
+      );
 
     }
 
-}
+  };
 
 </script>
 
