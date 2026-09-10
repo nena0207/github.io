@@ -1,4 +1,45 @@
-<!DOCTYPE html>
+[06:43, 10/09/2026] Tutlachvili: <!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 ნენა</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5fa;
+      color: #444;
+    }
+
+    header {
+      background: white;
+      padding: 18px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #e91e63;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .layout {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      width: 220px;
+      min-height: calc(100vh - 70px);
+      background: wh…
+[07:09, 10/09/2026] Tutlachvili: <!DOCTYPE html>
 <html lang="ka">
 <head>
   <meta charset="UTF-8">
@@ -49,16 +90,44 @@
       width: 100%;
       border: none;
       background: white;
-      padding: 13px 10px;
+      padding: 10px 8px;
       margin-bottom: 7px;
       border-radius: 10px;
       text-align: left;
       font-size: 16px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: #444;
     }
 
     .sidebar button:hover {
-      background: #ffe1ed;
+      background: #fff7e0;
+    }
+
+    .goldIcon {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      background: linear-gradient(145deg, #fff8cf, #f4c542, #b77a00);
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.9),
+        0 2px 5px rgba(160,110,0,.25);
+    }
+
+    .goldIcon svg {
+      width: 29px;
+      height: 29px;
+      fill: none;
+      stroke: #5c3b00;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .loginBtn {
@@ -66,12 +135,14 @@
       background: #e91e63 !important;
       color: white !important;
       text-align: center !important;
+      justify-content: center;
     }
 
     .logoutBtn {
       background: #777 !important;
       color: white !important;
       text-align: center !important;
+      justify-content: center;
     }
 
     main {
@@ -209,6 +280,11 @@
       cursor: pointer;
     }
 
+    .saveBtn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
     .closeBtn {
       width: 100%;
       border: none;
@@ -225,6 +301,23 @@
       text-align: center;
       padding: 20px;
       color: #777;
+    }
+
+    #imagePreview {
+      display: none;
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: #f5f5f5;
+    }
+
+    #selectedFile {
+      display: none;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 10px;
     }
 
     @media (max-width: 700px) {
@@ -273,43 +366,122 @@
 
 <div class="layout">
 
-  <!-- სარჩევი მარცხნივ -->
   <aside class="sidebar">
 
     <button onclick="showCategory('ყველა')">
-      🏠 მთავარი
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 4l9 7.5"/>
+          <path d="M5 10v10h14V10"/>
+          <path d="M9 20v-6h6v6"/>
+        </svg>
+      </span>
+      მთავარი
     </button>
 
     <button onclick="showCategory('სუნამოები')">
-      🌸 სუნამოები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 8h8v13H8z"/>
+          <path d="M10 8V5h4v3"/>
+          <path d="M11 5V3h2v2"/>
+          <path d="M10 12h4"/>
+          <circle cx="12" cy="16" r="1.5"/>
+        </svg>
+      </span>
+      სუნამოები
     </button>
 
     <button onclick="showCategory('ტუშები')">
-      💄 ტუშები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 4h6"/>
+          <path d="M10 4v3h4V4"/>
+          <path d="M8 7h8v12H8z"/>
+          <path d="M10 10h4"/>
+          <path d="M10 13h4"/>
+          <path d="M10 16h4"/>
+        </svg>
+      </span>
+      ტუშები
     </button>
 
     <button onclick="showCategory('სათვალეები')">
-      👓 სათვალეები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="7" cy="13" r="4"/>
+          <circle cx="17" cy="13" r="4"/>
+          <path d="M11 13h2"/>
+          <path d="M3 11 1.5 10"/>
+          <path d="M21 11 22.5 10"/>
+        </svg>
+      </span>
+      სათვალეები
     </button>
 
     <button onclick="showCategory('ტუჩსაცხები')">
-      💄 ტუჩსაცხები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 9h8v11H8z"/>
+          <path d="M9 9V5h6v4"/>
+          <path d="M10 5c0-2 1-3 2-3s2 1 2 3"/>
+          <path d="M8 14h8"/>
+        </svg>
+      </span>
+      ტუჩსაცხები
     </button>
 
     <button onclick="showCategory('კრემები')">
-      🧴 კრემები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 9h14v11H5z"/>
+          <path d="M4 7h16v3H4z"/>
+          <path d="M9 7V5h6v2"/>
+          <path d="M8 14h8"/>
+        </svg>
+      </span>
+      კრემები
     </button>
 
     <button onclick="showCategory('შამპუნები')">
-      🧼 შამპუნები
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 7h8v14H8z"/>
+          <path d="M10 7V4h4v3"/>
+          <path d="M10 4h4"/>
+          <circle cx="17" cy="5" r="1"/>
+          <circle cx="19" cy="8" r="1.2"/>
+          <path d="M10 12h4"/>
+          <path d="M10 15h4"/>
+        </svg>
+      </span>
+      შამპუნები
     </button>
 
     <button onclick="showCategory('სახის მოვლა')">
-      🧖 სახის მოვლა
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 4c-4 0-7 3-7 8 0 5 3 8 7 8s7-3 7-8c0-5-3-8-7-8z"/>
+          <circle cx="9" cy="12" r=".8"/>
+          <circle cx="15" cy="12" r=".8"/>
+          <path d="M9 16c2 1.5 4 1.5 6 0"/>
+          <path d="M18 4v3"/>
+          <path d="M16.5 5.5h3"/>
+        </svg>
+      </span>
+      სახის მოვლა
     </button>
 
     <button onclick="showCategory('სხვა')">
-      🛍️ სხვა
+      <span class="goldIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 8h16v13H4z"/>
+          <path d="M3 8h18l-2-4H5z"/>
+          <path d="M8 8c0-2 1-3 4-3s4 1 4 3"/>
+          <path d="M12 8v13"/>
+        </svg>
+      </span>
+      სხვა
     </button>
 
     <button
@@ -345,15 +517,14 @@
 
 </div>
 
-<!-- + ღილაკი -->
-
 <button
   id="addButton"
   onclick="openAddModal()">
   +
 </button>
 
-<!-- შესვლა -->
+
+<!-- LOGIN -->
 
 <div id="loginModal" class="modal">
 
@@ -383,7 +554,8 @@
 
 </div>
 
-<!-- პროდუქტის დამატება -->
+
+<!-- ADD PRODUCT -->
 
 <div id="addModal" class="modal">
 
@@ -398,27 +570,42 @@
 
     <select id="productCategory">
 
-      <option value="სუნამოები">🌸 სუნამოები</option>
-      <option value="ტუშები">💄 ტუშები</option>
-      <option value="სათვალეები">👓 სათვალეები</option>
-      <option value="ტუჩსაცხები">💄 ტუჩსაცხები</option>
-      <option value="კრემები">🧴 კრემები</option>
-      <option value="შამპუნები">🧼 შამპუნები</option>
-      <option value="სახის მოვლა">🧖 სახის მოვლა</option>
-      <option value="სხვა">🛍️ სხვა</option>
+      <option value="სუნამოები">სუნამოები</option>
+
+      <option value="ტუშები">ტუშები</option>
+
+      <option value="სათვალეები">სათვალეები</option>
+
+      <option value="ტუჩსაცხები">ტუჩსაცხები</option>
+
+      <option value="კრემები">კრემები</option>
+
+      <option value="შამპუნები">შამპუნები</option>
+
+      <option value="სახის მოვლა">სახის მოვლა</option>
+
+      <option value="სხვა">სხვა</option>
 
     </select>
 
     <input
       id="productImage"
       type="file"
-      accept="image/*">
+      accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*"
+      capture="environment">
+
+    <div id="selectedFile"></div>
+
+    <img
+      id="imagePreview"
+      alt="არჩეული ფოტო">
 
     <textarea
       id="productDescription"
       placeholder="აღწერა / კომენტარი"></textarea>
 
     <button
+      id="uploadButton"
       class="saveBtn"
       onclick="addProduct()">
       ატვირთვა
@@ -434,185 +621,179 @@
 
 </div>
 
+
 <script type="module">
 
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    deleteDoc,
-    doc,
-    onSnapshot,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-  /* =========================
-     სწორი Firebase Config
-     ========================= */
-
-  const firebaseConfig = {
-
-    apiKey: "AIzaSyDAOSh708OW7OkOwLsL6w3lOru1qRyhtgM",
-
-    authDomain: "nena-bf825.firebaseapp.com",
-
-    projectId: "nena-bf825",
-
-    storageBucket: "nena-bf825.firebasestorage.app",
-
-    messagingSenderId: "552511105234",
-
-    appId: "1:552511105234:web:38022acc39761284a5650b",
-
-    measurementId: "G-1YB7NH25M5"
-
-  };
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-  const app =
-    initializeApp(firebaseConfig);
+/* =========================
+   FIREBASE
+========================= */
 
-  const db =
-    getFirestore(app);
+const firebaseConfig = {
 
-  const auth =
-    getAuth(app);
+  apiKey: "AIzaSyDAOSh708OW7OkOwLsL6w3lOru1qRyhtgM",
 
+  authDomain: "nena-bf825.firebaseapp.com",
 
-  /* ადმინისტრატორი */
+  projectId: "nena-bf825",
 
-  const ADMIN_EMAIL =
-    "Valerychutlashvili@gmail.com";
+  storageBucket: "nena-bf825.firebasestorage.app",
 
-  const ADMIN_UID =
-    "J9t8FfYXDxQI8q1YkDZOhtLmrLh2";
+  messagingSenderId: "552511105234",
 
+  appId: "1:552511105234:web:38022acc39761284a5650b",
 
-  let allProducts = [];
+  measurementId: "G-1YB7NH25M5"
 
-  let currentCategory = "ყველა";
-
-
-  /* =========================
-     Login ფანჯარა
-     ========================= */
-
-  window.openLogin = function() {
-
-    document.getElementById(
-      "loginModal"
-    ).style.display = "flex";
-
-    document.getElementById(
-      "adminPassword"
-    ).focus();
-
-  };
+};
 
 
-  window.closeLogin = function() {
+const app = initializeApp(firebaseConfig);
 
-    document.getElementById(
-      "loginModal"
-    ).style.display = "none";
+const db = getFirestore(app);
 
-  };
+const auth = getAuth(app);
 
 
-  /* =========================
-     Firebase Login
-     ========================= */
+/* =========================
+   ADMIN
+========================= */
 
-  window.login = async function() {
+const ADMIN_EMAIL =
+  "Valerychutlashvili@gmail.com";
 
-    const password =
-      document.getElementById(
-        "adminPassword"
-      ).value.trim();
+const ADMIN_UID =
+  "J9t8FfYXDxQI8q1YkDZOhtLmrLh2";
 
 
-    if (!password) {
+let allProducts = [];
 
-      alert("შეიყვანე პაროლი");
+let currentCategory = "ყველა";
+
+
+/* =========================
+   LOGIN
+========================= */
+
+window.openLogin = function() {
+
+  document.getElementById("loginModal").style.display = "flex";
+
+  setTimeout(() => {
+
+    document
+      .getElementById("adminPassword")
+      .focus();
+
+  }, 100);
+
+};
+
+
+window.closeLogin = function() {
+
+  document.getElementById("loginModal").style.display = "none";
+
+};
+
+
+window.login = async function() {
+
+  const password =
+    document
+      .getElementById("adminPassword")
+      .value
+      .trim();
+
+
+  if (!password) {
+
+    alert("შეიყვანე პაროლი");
+
+    return;
+
+  }
+
+
+  try {
+
+    const result =
+      await signInWithEmailAndPassword(
+        auth,
+        ADMIN_EMAIL,
+        password
+      );
+
+
+    if (result.user.uid !== ADMIN_UID) {
+
+      await signOut(auth);
+
+      alert(
+        "ადმინისტრატორის ანგარიში არასწორია"
+      );
 
       return;
 
     }
 
 
-    try {
+    closeLogin();
 
-      const result =
-        await signInWithEmailAndPassword(
-          auth,
-          ADMIN_EMAIL,
-          password
-        );
+    document
+      .getElementById("adminPassword")
+      .value = "";
 
 
-      if (
-        result.user.uid !== ADMIN_UID
-      ) {
-
-        await signOut(auth);
-
-        alert(
-          "ადმინისტრატორის ანგარიში არასწორია"
-        );
-
-        return;
-
-      }
+    alert("წარმატებით შეხვედი ✅");
 
 
-      closeLogin();
+  } catch (error) {
 
-      document.getElementById(
-        "adminPassword"
-      ).value = "";
-
-
-      alert(
-        "წარმატებით შეხვედი ✅"
-      );
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
 
 
-    } catch (error) {
+    alert(
+      "შესვლა ვერ მოხერხდა:\n" +
+      (
+        error.message ||
+        error.code ||
+        "უცნობი შეცდომა"
+      )
+    );
 
-      console.error(
-        "LOGIN ERROR:",
-        error.code,
-        error.message
-      );
+  }
 
-
-      alert(
-        "შესვლა ვერ მოხერხდა: " +
-        error.code
-      );
-
-    }
-
-  };
+};
 
 
-  /* Enter-ით შესვლა */
-
-  document.getElementById(
-    "adminPassword"
-  ).addEventListener(
+document
+  .getElementById("adminPassword")
+  .addEventListener(
     "keydown",
     function(event) {
 
@@ -626,48 +807,300 @@
   );
 
 
-  /* =========================
-     მომხმარებლის მდგომარეობა
-     ========================= */
+/* =========================
+   AUTH STATE
+========================= */
 
-  onAuthStateChanged(
-    auth,
-    user => {
+onAuthStateChanged(
+  auth,
+  user => {
 
-      if (
-        user &&
-        user.uid === ADMIN_UID
-      ) {
+    if (
+      user &&
+      user.uid === ADMIN_UID
+    ) {
 
-        document.body.classList.add(
-          "admin"
+      document.body.classList.add("admin");
+
+      document
+        .getElementById("loginButton")
+        .style.display = "none";
+
+      document
+        .getElementById("logoutButton")
+        .style.display = "block";
+
+    } else {
+
+      document.body.classList.remove("admin");
+
+      document
+        .getElementById("loginButton")
+        .style.display = "block";
+
+      document
+        .getElementById("logoutButton")
+        .style.display = "none";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout = async function() {
+
+  try {
+
+    await signOut(auth);
+
+    alert(
+      "ადმინისტრატორის რეჟიმი გამორთულია"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+window.showCategory = function(category) {
+
+  currentCategory = category;
+
+  const title =
+    document.getElementById(
+      "categoryTitle"
+    );
+
+
+  if (category === "ყველა") {
+
+    title.textContent =
+      "🏠 მთავარი";
+
+  } else {
+
+    title.textContent =
+      category;
+
+  }
+
+
+  renderProducts();
+
+};
+
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts() {
+
+  const container =
+    document.getElementById(
+      "products"
+    );
+
+
+  container.innerHTML = "";
+
+
+  let products =
+    allProducts;
+
+
+  if (
+    currentCategory !== "ყველა"
+  ) {
+
+    products =
+      allProducts.filter(
+        product =>
+          product.category ===
+          currentCategory
+      );
+
+  }
+
+
+  if (products.length === 0) {
+
+    document
+      .getElementById("status")
+      .style.display = "block";
+
+
+    document
+      .getElementById("status")
+      .textContent =
+        "ამ კატეგორიაში პროდუქტები ჯერ არ არის.";
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("status")
+    .style.display = "none";
+
+
+  products.forEach(product => {
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+      "product";
+
+
+    const image =
+      product.image ||
+      "https://via.placeholder.com/500x500?text=Nena";
+
+
+    div.innerHTML = `
+
+      <img
+        src="${image}"
+        alt="პროდუქტი">
+
+      <h3>
+        ${escapeHtml(product.name || "")}
+      </h3>
+
+      <p>
+        ${escapeHtml(product.description || "")}
+      </p>
+
+      <button
+        class="deleteBtn"
+        onclick="deleteProduct('${product.id}')">
+        🗑️ წაშლა
+      </button>
+
+    `;
+
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   HTML SECURITY
+========================= */
+
+function escapeHtml(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================
+   IMAGE PREVIEW
+========================= */
+
+document
+  .getElementById("productImage")
+  .addEventListener(
+    "change",
+    function() {
+
+      const file =
+        this.files &&
+        this.files[0];
+
+
+      const preview =
+        document.getElementById(
+          "imagePreview"
         );
 
 
+      const selectedFile =
         document.getElementById(
-          "loginButton"
-        ).style.display = "none";
-
-
-        document.getElementById(
-          "logoutButton"
-        ).style.display = "block";
-
-      } else {
-
-        document.body.classList.remove(
-          "admin"
+          "selectedFile"
         );
 
 
-        document.getElementById(
-          "loginButton"
-        ).style.display = "block";
+      if (!file) {
+
+        preview.style.display =
+          "none";
+
+        selectedFile.style.display =
+          "none";
+
+        return;
+
+      }
 
 
-        document.getElementById(
-          "logoutButton"
-        ).style.display = "none";
+      selectedFile.style.display =
+        "block";
+
+
+      selectedFile.textContent =
+        "არჩეულია: " +
+        file.name;
+
+
+      /*
+        ტელეფონში არჩეული ფოტოს
+        პირდაპირ ჩვენება.
+      */
+
+      try {
+
+        const url =
+          URL.createObjectURL(file);
+
+
+        preview.src =
+          url;
+
+
+        preview.style.display =
+          "block";
+
+
+        preview.onload = function() {
+
+          URL.revokeObjectURL(url);
+
+        };
+
+
+      } catch (error) {
+
+        console.error(
+          "PREVIEW ERROR:",
+          error
+        );
 
       }
 
@@ -675,634 +1108,748 @@
   );
 
 
-  /* =========================
-     გამოსვლა
-     ========================= */
+/* =========================
+   IMAGE COMPRESSION
+========================= */
 
-  window.logout = async function() {
+function compressImage(file) {
 
-    try {
+  return new Promise(
+    (resolve, reject) => {
 
-      await signOut(auth);
+      if (!file) {
 
-      alert(
-        "ადმინისტრატორის რეჟიმი გამორთულია"
-      );
+        reject(
+          new Error(
+            "ფოტო არჩეული არ არის"
+          )
+        );
 
-    } catch (error) {
+        return;
 
-      console.error(error);
+      }
+
+
+      /*
+        ზოგი Android ტელეფონი
+        MIME ტიპს სწორად არ აბრუნებს.
+      */
+
+      const fileName =
+        (file.name || "")
+          .toLowerCase();
+
+
+      const looksLikeImage =
+        file.type.startsWith("image/") ||
+        /\.(jpg|jpeg|png|webp|heic|heif)$/i
+          .test(fileName);
+
+
+      if (!looksLikeImage) {
+
+        reject(
+          new Error(
+            "არჩეული ფაილი სურათი არ არის."
+          )
+        );
+
+        return;
+
+      }
+
+
+      const objectUrl =
+        URL.createObjectURL(file);
+
+
+      const img =
+        new Image();
+
+
+      let finished = false;
+
+
+      const cleanup = () => {
+
+        try {
+
+          URL.revokeObjectURL(
+            objectUrl
+          );
+
+        } catch (e) {}
+
+      };
+
+
+      const fail = message => {
+
+        if (finished) return;
+
+        finished = true;
+
+        cleanup();
+
+        reject(
+          new Error(message)
+        );
+
+      };
+
+
+      /*
+        Android-ისთვის timeout.
+      */
+
+      const timeout =
+        setTimeout(() => {
+
+          fail(
+            "ტელეფონის ფოტო ვერ დამუშავდა. სცადე JPG ან PNG ფოტო."
+          );
+
+        }, 15000);
+
+
+      img.onload = function() {
+
+        if (finished) return;
+
+
+        clearTimeout(timeout);
+
+
+        try {
+
+          const maxSize = 700;
+
+
+          let width =
+            img.naturalWidth ||
+            img.width;
+
+          let height =
+            img.naturalHeight ||
+            img.height;
+
+
+          if (!width || !height) {
+
+            fail(
+              "ფოტოს ზომის წაკითხვა ვერ მოხერხდა."
+            );
+
+            return;
+
+          }
+
+
+          /*
+            მაქსიმუმ 700x700
+          */
+
+          if (width > height) {
+
+            if (width > maxSize) {
+
+              height =
+                Math.round(
+                  height *
+                  maxSize /
+                  width
+                );
+
+              width =
+                maxSize;
+
+            }
+
+          } else {
+
+            if (height > maxSize) {
+
+              width =
+                Math.round(
+                  width *
+                  maxSize /
+                  height
+                );
+
+              height =
+                maxSize;
+
+            }
+
+          }
+
+
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+
+          canvas.width =
+            width;
+
+          canvas.height =
+            height;
+
+
+          const ctx =
+            canvas.getContext(
+              "2d"
+            );
+
+
+          if (!ctx) {
+
+            fail(
+              "სურათის დამუშავება ვერ მოხერხდა."
+            );
+
+            return;
+
+          }
+
+
+          ctx.fillStyle =
+            "#ffffff";
+
+          ctx.fillRect(
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          /*
+            თავიდან კარგი ხარისხით.
+          */
+
+          let quality =
+            0.75;
+
+
+          let dataUrl =
+            canvas.toDataURL(
+              "image/jpeg",
+              quality
+            );
+
+
+          /*
+            თუ დიდია,
+            ხარისხი მცირდება.
+          */
+
+          while (
+            dataUrl.length > 500000 &&
+            quality > 0.25
+          ) {
+
+            quality -= 0.10;
+
+
+            dataUrl =
+              canvas.toDataURL(
+                "image/jpeg",
+                quality
+              );
+
+          }
+
+
+          if (
+            dataUrl.length >
+            900000
+          ) {
+
+            fail(
+              "ფოტო ძალიან დიდია. აირჩიე უფრო პატარა ფოტო."
+            );
+
+            return;
+
+          }
+
+
+          finished = true;
+
+          cleanup();
+
+          resolve(dataUrl);
+
+
+        } catch (error) {
+
+          fail(
+            error.message ||
+            "ფოტოს დამუშავება ვერ მოხერხდა."
+          );
+
+        }
+
+      };
+
+
+      img.onerror =
+        function() {
+
+          clearTimeout(timeout);
+
+          fail(
+            "ეს ფოტო ფორმატი ბრაუზერმა ვერ გახსნა. ტელეფონში აირჩიე JPG ან PNG ფოტო."
+          );
+
+        };
+
+
+      img.src =
+        objectUrl;
 
     }
+  );
+
+}
+
+
+/* =========================
+   ADD MODAL
+========================= */
+
+window.openAddModal =
+  function() {
+
+    document
+      .getElementById("addModal")
+      .style.display = "flex";
 
   };
 
 
-  /* =========================
-     კატეგორიები
-     ========================= */
+window.closeAddModal =
+  function() {
 
-  window.showCategory = function(category) {
-
-    currentCategory = category;
-
-    const title =
-      document.getElementById(
-        "categoryTitle"
-      );
-
-
-    if (category === "ყველა") {
-
-      title.textContent =
-        "🏠 მთავარი";
-
-    } else {
-
-      title.textContent =
-        category;
-
-    }
-
-
-    renderProducts();
+    document
+      .getElementById("addModal")
+      .style.display = "none";
 
   };
 
 
-  /* =========================
-     პროდუქტების ჩვენება
-     ========================= */
+/* =========================
+   ADD PRODUCT
+========================= */
 
-  function renderProducts() {
+window.addProduct =
+  async function() {
 
-    const container =
-      document.getElementById(
-        "products"
-      );
-
-
-    container.innerHTML = "";
-
-
-    let products =
-      allProducts;
+    const user =
+      auth.currentUser;
 
 
     if (
-      currentCategory !== "ყველა"
+      !user ||
+      user.uid !== ADMIN_UID
     ) {
 
-      products =
-        allProducts.filter(
-          product =>
-            product.category ===
-            currentCategory
-        );
-
-    }
-
-
-    if (products.length === 0) {
-
-      document.getElementById(
-        "status"
-      ).style.display = "block";
-
-
-      document.getElementById(
-        "status"
-      ).textContent =
-        "ამ კატეგორიაში პროდუქტები ჯერ არ არის.";
-
+      alert(
+        "პროდუქტის დამატება მხოლოდ ადმინისტრატორს შეუძლია."
+      );
 
       return;
 
     }
 
 
-    document.getElementById(
-      "status"
-    ).style.display = "none";
+    const name =
+      document
+        .getElementById("productName")
+        .value
+        .trim();
 
 
-    products.forEach(product => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
+    const category =
+      document
+        .getElementById("productCategory")
+        .value;
 
 
-      div.className =
-        "product";
+    const description =
+      document
+        .getElementById("productDescription")
+        .value
+        .trim();
 
 
-      const image =
-        product.image ||
-        "https://via.placeholder.com/500x500?text=Nena";
+    const fileInput =
+      document
+        .getElementById("productImage");
 
 
-      div.innerHTML = `
-
-        <img
-          src="${image}"
-          alt="პროდუქტი">
-
-        <h3>
-          ${escapeHtml(
-            product.name || ""
-          )}
-        </h3>
-
-        <p>
-          ${escapeHtml(
-            product.description || ""
-          )}
-        </p>
-
-        <button
-          class="deleteBtn"
-          onclick="deleteProduct('${product.id}')">
-          🗑️ წაშლა
-        </button>
-
-      `;
+    const file =
+      fileInput.files &&
+      fileInput.files[0];
 
 
-      container.appendChild(div);
+    if (!name) {
 
-    });
-
-  }
-
-
-  /* =========================
-     ტექსტის დაცვა
-     ========================= */
-
-  function escapeHtml(text) {
-
-    const div =
-      document.createElement(
-        "div"
+      alert(
+        "შეიყვანე პროდუქტის სახელი"
       );
 
-    div.textContent =
-      text;
+      return;
 
-    return div.innerHTML;
-
-  }
+    }
 
 
-  /* =========================
-     ფოტოს შეკუმშვა
-     ========================= */
+    if (!file) {
 
-  function compressImage(file) {
+      alert(
+        "აირჩიე პროდუქტის ფოტო"
+      );
 
-    return new Promise(
-      (resolve, reject) => {
+      return;
 
-        const reader =
-          new FileReader();
+    }
 
 
-        reader.onload =
-          event => {
-
-            const img =
-              new Image();
-
-
-            img.onload =
-              () => {
-
-                const maxSize =
-                  900;
+    const saveButton =
+      document.getElementById(
+        "uploadButton"
+      );
 
 
-                let width =
-                  img.width;
+    try {
 
-                let height =
-                  img.height;
+      saveButton.disabled =
+        true;
 
-
-                if (
-                  width > height
-                ) {
-
-                  if (
-                    width > maxSize
-                  ) {
-
-                    height =
-                      Math.round(
-                        height *
-                        maxSize /
-                        width
-                      );
-
-                    width =
-                      maxSize;
-
-                  }
-
-                } else {
-
-                  if (
-                    height > maxSize
-                  ) {
-
-                    width =
-                      Math.round(
-                        width *
-                        maxSize /
-                        height
-                      );
-
-                    height =
-                      maxSize;
-
-                  }
-
-                }
+      saveButton.textContent =
+        "ფოტო მუშავდება...";
 
 
-                const canvas =
-                  document.createElement(
-                    "canvas"
-                  );
+      console.log(
+        "Original file:",
+        file.name,
+        file.type,
+        file.size
+      );
 
 
-                canvas.width =
-                  width;
+      /*
+        ფოტოს შეკუმშვა.
+      */
 
-                canvas.height =
-                  height;
-
-
-                const ctx =
-                  canvas.getContext(
-                    "2d"
-                  );
+      const image =
+        await compressImage(file);
 
 
-                ctx.drawImage(
-                  img,
-                  0,
-                  0,
-                  width,
-                  height
-                );
+      console.log(
+        "Compressed image:",
+        Math.round(
+          image.length / 1024
+        ),
+        "KB"
+      );
 
 
-                const dataUrl =
-                  canvas.toDataURL(
-                    "image/jpeg",
-                    0.65
-                  );
+      saveButton.textContent =
+        "იტვირთება...";
 
 
-                resolve(dataUrl);
+      /*
+        Firestore-ში შენახვა.
+      */
 
-              };
+      await addDoc(
+        collection(
+          db,
+          "products"
+        ),
+        {
+
+          name: name,
+
+          category: category,
+
+          description: description,
+
+          image: image,
+
+          createdAt:
+            serverTimestamp()
+
+        }
+      );
 
 
-            img.onerror =
-              reject;
+      alert(
+        "პროდუქტი წარმატებით დაემატა ✅"
+      );
 
 
-            img.src =
-              event.target.result;
+      /*
+        ვასუფთავებთ ფორმას.
+      */
 
-          };
+      document
+        .getElementById("productName")
+        .value = "";
 
 
-        reader.onerror =
-          reject;
+      document
+        .getElementById("productDescription")
+        .value = "";
 
 
-        reader.readAsDataURL(
-          file
-        );
+      fileInput.value = "";
+
+
+      document
+        .getElementById("imagePreview")
+        .style.display = "none";
+
+
+      document
+        .getElementById("selectedFile")
+        .style.display = "none";
+
+
+      closeAddModal();
+
+
+    } catch (error) {
+
+      console.error(
+        "ADD PRODUCT ERROR:",
+        error
+      );
+
+
+      let message =
+        error?.message ||
+        error?.code ||
+        String(error);
+
+
+      /*
+        უფრო გასაგები შეცდომები.
+      */
+
+      if (
+        message.includes(
+          "permission-denied"
+        )
+      ) {
+
+        message =
+          "Firebase-ის უფლება არ იძლევა პროდუქტის დამატებას.";
+
+      }
+
+
+      if (
+        message.includes(
+          "quota"
+        )
+      ) {
+
+        message =
+          "Firebase-ის საცავის ლიმიტი ამოიწურა.";
+
+      }
+
+
+      alert(
+        "პროდუქტის დამატება ვერ მოხერხდა:\n\n" +
+        message
+      );
+
+
+    } finally {
+
+      saveButton.disabled =
+        false;
+
+      saveButton.textContent =
+        "ატვირთვა";
+
+    }
+
+  };
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+window.deleteProduct =
+  async function(id) {
+
+    const user =
+      auth.currentUser;
+
+
+    if (
+      !user ||
+      user.uid !== ADMIN_UID
+    ) {
+
+      alert(
+        "ამის უფლება მხოლოდ ადმინისტრატორს აქვს"
+      );
+
+      return;
+
+    }
+
+
+    const ok =
+      confirm(
+        "ნამდვილად გინდა პროდუქტის წაშლა?"
+      );
+
+
+    if (!ok) {
+
+      return;
+
+    }
+
+
+    try {
+
+      await deleteDoc(
+        doc(
+          db,
+          "products",
+          id
+        )
+      );
+
+
+      alert(
+        "პროდუქტი წაიშალა ✅"
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "DELETE ERROR:",
+        error
+      );
+
+
+      alert(
+        "წაშლა ვერ მოხერხდა:\n" +
+        (
+          error?.message ||
+          error?.code ||
+          String(error)
+        )
+      );
+
+    }
+
+  };
+
+
+/* =========================
+   FIRESTORE PRODUCTS
+========================= */
+
+onSnapshot(
+
+  collection(
+    db,
+    "products"
+  ),
+
+  snapshot => {
+
+    allProducts = [];
+
+
+    snapshot.forEach(
+      document => {
+
+        allProducts.push({
+
+          id:
+            document.id,
+
+          ...document.data()
+
+        });
 
       }
     );
 
+
+    allProducts.sort(
+      (a, b) => {
+
+        const aTime =
+          a.createdAt?.seconds ||
+          0;
+
+
+        const bTime =
+          b.createdAt?.seconds ||
+          0;
+
+
+        return bTime - aTime;
+
+      }
+    );
+
+
+    renderProducts();
+
+  },
+
+
+  error => {
+
+    console.error(
+      "FIRESTORE ERROR:",
+      error
+    );
+
+
+    document
+      .getElementById("status")
+      .style.display = "block";
+
+
+    document
+      .getElementById("status")
+      .textContent =
+        "პროდუქტების ჩატვირთვისას შეცდომაა: " +
+        (
+          error?.message ||
+          error?.code ||
+          String(error)
+        );
+
   }
 
-
-  /* =========================
-     პროდუქტის დამატების ფანჯარა
-     ========================= */
-
-  window.openAddModal =
-    function() {
-
-      document.getElementById(
-        "addModal"
-      ).style.display =
-        "flex";
-
-    };
-
-
-  window.closeAddModal =
-    function() {
-
-      document.getElementById(
-        "addModal"
-      ).style.display =
-        "none";
-
-    };
-
-
-  /* =========================
-     პროდუქტის დამატება
-     ========================= */
-
-  window.addProduct =
-    async function() {
-
-      const name =
-        document.getElementById(
-          "productName"
-        ).value.trim();
-
-
-      const category =
-        document.getElementById(
-          "productCategory"
-        ).value;
-
-
-      const description =
-        document.getElementById(
-          "productDescription"
-        ).value.trim();
-
-
-      const file =
-        document.getElementById(
-          "productImage"
-        ).files[0];
-
-
-      if (!name) {
-
-        alert(
-          "შეიყვანე პროდუქტის სახელი"
-        );
-
-        return;
-
-      }
-
-
-      if (!file) {
-
-        alert(
-          "აირჩიე პროდუქტის ფოტო"
-        );
-
-        return;
-
-      }
-
-
-      try {
-
-        const image =
-          await compressImage(
-            file
-          );
-
-
-        await addDoc(
-          collection(
-            db,
-            "products"
-          ),
-          {
-
-            name:
-              name,
-
-            category:
-              category,
-
-            description:
-              description,
-
-            image:
-              image,
-
-            createdAt:
-              serverTimestamp()
-
-          }
-        );
-
-
-        alert(
-          "პროდუქტი დაემატა ✅"
-        );
-
-
-        document.getElementById(
-          "productName"
-        ).value = "";
-
-
-        document.getElementById(
-          "productDescription"
-        ).value = "";
-
-
-        document.getElementById(
-          "productImage"
-        ).value = "";
-
-
-        closeAddModal();
-
-
-      } catch (error) {
-
-        console.error(
-          "ADD PRODUCT ERROR:",
-          error.code,
-          error.message
-        );
-
-
-        alert(
-          "პროდუქტის დამატება ვერ მოხერხდა: " +
-          error.code
-        );
-
-      }
-
-    };
-
-
-  /* =========================
-     პროდუქტის წაშლა
-     ========================= */
-
-  window.deleteProduct =
-    async function(id) {
-
-      const user =
-        auth.currentUser;
-
-
-      if (
-        !user ||
-        user.uid !== ADMIN_UID
-      ) {
-
-        alert(
-          "ამის უფლება მხოლოდ ადმინისტრატორს აქვს"
-        );
-
-        return;
-
-      }
-
-
-      const ok =
-        confirm(
-          "ნამდვილად გინდა პროდუქტის წაშლა?"
-        );
-
-
-      if (!ok) {
-
-        return;
-
-      }
-
-
-      try {
-
-        await deleteDoc(
-          doc(
-            db,
-            "products",
-            id
-          )
-        );
-
-
-        alert(
-          "პროდუქტი წაიშალა ✅"
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "DELETE ERROR:",
-          error.code,
-          error.message
-        );
-
-
-        alert(
-          "წაშლა ვერ მოხერხდა: " +
-          error.code
-        );
-
-      }
-
-    };
-
-
-  /* =========================
-     Firebase სინქრონიზაცია
-     ========================= */
-
-  onSnapshot(
-
-    collection(
-      db,
-      "products"
-    ),
-
-    snapshot => {
-
-      allProducts = [];
-
-
-      snapshot.forEach(
-        document => {
-
-          allProducts.push({
-
-            id:
-              document.id,
-
-            ...document.data()
-
-          });
-
-        }
-      );
-
-
-      allProducts.sort(
-        (a, b) => {
-
-          const aTime =
-            a.createdAt?.seconds ||
-            0;
-
-
-          const bTime =
-            b.createdAt?.seconds ||
-            0;
-
-
-          return bTime - aTime;
-
-        }
-      );
-
-
-      renderProducts();
-
-    },
-
-
-    error => {
-
-      console.error(
-        "FIRESTORE ERROR:",
-        error.code,
-        error.message
-      );
-
-
-      document.getElementById(
-        "status"
-      ).style.display =
-        "block";
-
-
-      document.getElementById(
-        "status"
-      ).textContent =
-        "პროდუქტების ჩატვირთვისას შეცდომაა: " +
-        error.code;
-
-    }
-
-  );
+);
 
 </script>
 
