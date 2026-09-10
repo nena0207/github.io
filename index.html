@@ -209,11 +209,6 @@
       cursor: pointer;
     }
 
-    .saveBtn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
     .closeBtn {
       width: 100%;
       border: none;
@@ -278,6 +273,7 @@
 
 <div class="layout">
 
+  <!-- სარჩევი მარცხნივ -->
   <aside class="sidebar">
 
     <button onclick="showCategory('ყველა')">
@@ -349,11 +345,15 @@
 
 </div>
 
+<!-- + ღილაკი -->
+
 <button
   id="addButton"
   onclick="openAddModal()">
   +
 </button>
+
+<!-- შესვლა -->
 
 <div id="loginModal" class="modal">
 
@@ -382,6 +382,8 @@
   </div>
 
 </div>
+
+<!-- პროდუქტის დამატება -->
 
 <div id="addModal" class="modal">
 
@@ -417,7 +419,6 @@
       placeholder="აღწერა / კომენტარი"></textarea>
 
     <button
-      id="uploadButton"
       class="saveBtn"
       onclick="addProduct()">
       ატვირთვა
@@ -456,20 +457,9 @@
     signOut
   } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-  /* =========================
-     Firebase Storage
-     ========================= */
-
-  import {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-
 
   /* =========================
-     Firebase Config
+     სწორი Firebase Config
      ========================= */
 
   const firebaseConfig = {
@@ -500,13 +490,8 @@
   const auth =
     getAuth(app);
 
-  const storage =
-    getStorage(app);
 
-
-  /* =========================
-     ადმინისტრატორი
-     ========================= */
+  /* ადმინისტრატორი */
 
   const ADMIN_EMAIL =
     "Valerychutlashvili@gmail.com";
@@ -547,7 +532,7 @@
 
 
   /* =========================
-     Login
+     Firebase Login
      ========================= */
 
   window.login = async function() {
@@ -642,7 +627,7 @@
 
 
   /* =========================
-     Auth მდგომარეობა
+     მომხმარებლის მდგომარეობა
      ========================= */
 
   onAuthStateChanged(
@@ -853,7 +838,7 @@
 
 
   /* =========================
-     HTML დაცვა
+     ტექსტის დაცვა
      ========================= */
 
   function escapeHtml(text) {
@@ -867,6 +852,145 @@
       text;
 
     return div.innerHTML;
+
+  }
+
+
+  /* =========================
+     ფოტოს შეკუმშვა
+     ========================= */
+
+  function compressImage(file) {
+
+    return new Promise(
+      (resolve, reject) => {
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          event => {
+
+            const img =
+              new Image();
+
+
+            img.onload =
+              () => {
+
+                const maxSize =
+                  900;
+
+
+                let width =
+                  img.width;
+
+                let height =
+                  img.height;
+
+
+                if (
+                  width > height
+                ) {
+
+                  if (
+                    width > maxSize
+                  ) {
+
+                    height =
+                      Math.round(
+                        height *
+                        maxSize /
+                        width
+                      );
+
+                    width =
+                      maxSize;
+
+                  }
+
+                } else {
+
+                  if (
+                    height > maxSize
+                  ) {
+
+                    width =
+                      Math.round(
+                        width *
+                        maxSize /
+                        height
+                      );
+
+                    height =
+                      maxSize;
+
+                  }
+
+                }
+
+
+                const canvas =
+                  document.createElement(
+                    "canvas"
+                  );
+
+
+                canvas.width =
+                  width;
+
+                canvas.height =
+                  height;
+
+
+                const ctx =
+                  canvas.getContext(
+                    "2d"
+                  );
+
+
+                ctx.drawImage(
+                  img,
+                  0,
+                  0,
+                  width,
+                  height
+                );
+
+
+                const dataUrl =
+                  canvas.toDataURL(
+                    "image/jpeg",
+                    0.65
+                  );
+
+
+                resolve(dataUrl);
+
+              };
+
+
+            img.onerror =
+              reject;
+
+
+            img.src =
+              event.target.result;
+
+          };
+
+
+        reader.onerror =
+          reject;
+
+
+        reader.readAsDataURL(
+          file
+        );
+
+      }
+    );
 
   }
 
@@ -898,7 +1022,7 @@
 
 
   /* =========================
-     ფოტოს ატვირთვა
+     პროდუქტის დამატება
      ========================= */
 
   window.addProduct =
@@ -950,118 +1074,13 @@
       }
 
 
-      /* მხოლოდ სურათის ფაილი */
-
-      if (
-        !file.type ||
-        !file.type.startsWith("image/")
-      ) {
-
-        alert(
-          "გთხოვ აირჩიე JPG, PNG ან სხვა სურათი."
-        );
-
-        return;
-
-      }
-
-
-      const user =
-        auth.currentUser;
-
-
-      if (
-        !user ||
-        user.uid !== ADMIN_UID
-      ) {
-
-        alert(
-          "ჯერ ადმინისტრატორად უნდა შეხვიდე."
-        );
-
-        return;
-
-      }
-
-
-      const uploadButton =
-        document.getElementById(
-          "uploadButton"
-        );
-
-
-      uploadButton.disabled = true;
-
-      uploadButton.textContent =
-        "იტვირთება...";
-
-
       try {
 
-        /*
-         * უნიკალური ფაილის სახელი.
-         * ორიგინალი ფოტო პირდაპირ Storage-ში მიდის.
-         */
-
-        const extension =
-          (
-            file.name.split(".").pop() ||
-            "jpg"
-          ).toLowerCase();
-
-
-        const safeExtension =
-          extension.replace(
-            /[^a-z0-9]/gi,
-            ""
-          ) || "jpg";
-
-
-        const fileName =
-          Date.now() +
-          "_" +
-          Math.random()
-            .toString(36)
-            .substring(2, 10) +
-          "." +
-          safeExtension;
-
-
-        const storageRef =
-          ref(
-            storage,
-            "products/" + fileName
+        const image =
+          await compressImage(
+            file
           );
 
-
-        /*
-         * ტელეფონის JPG პირდაპირ იტვირთება.
-         * აღარ ვიყენებთ FileReader-ს და Canvas-ს.
-         */
-
-        await uploadBytes(
-          storageRef,
-          file,
-          {
-            contentType:
-              file.type || "image/jpeg"
-          }
-        );
-
-
-        /*
-         * ვიღებთ ფოტოს საჯარო URL-ს
-         */
-
-        const imageUrl =
-          await getDownloadURL(
-            storageRef
-          );
-
-
-        /*
-         * Firestore-ში ინახება მხოლოდ URL.
-         */
 
         await addDoc(
           collection(
@@ -1080,7 +1099,7 @@
               description,
 
             image:
-              imageUrl,
+              image,
 
             createdAt:
               serverTimestamp()
@@ -1116,24 +1135,15 @@
 
         console.error(
           "ADD PRODUCT ERROR:",
-          error
+          error.code,
+          error.message
         );
 
 
         alert(
-          "პროდუქტის დამატება ვერ მოხერხდა:\n" +
-          error.code +
-          "\n\n" +
-          error.message
+          "პროდუქტის დამატება ვერ მოხერხდა: " +
+          error.code
         );
-
-      } finally {
-
-        uploadButton.disabled =
-          false;
-
-        uploadButton.textContent =
-          "ატვირთვა";
 
       }
 
